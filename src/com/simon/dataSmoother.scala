@@ -40,10 +40,10 @@ object dataSmoother {
       val deviceprice = x(14).toDouble
       val homerealestateprice = x(15).toDouble
 
-      (user_id,ageband,datacomsuption,arpu,sms_counter,incoming_call_counter,outgoint_call_counter,localnumpoi,localnumdwells,roamnumpois,roamnumdwells,numroamcity,commutedistance,numuserlabels,deviceprice,homerealestateprice)
+      (user_id,ageband,datacomsuption,arpu,deviceprice,sms_counter,incoming_call_counter,outgoint_call_counter,localnumpoi,localnumdwells,roamnumpois,roamnumdwells,numroamcity,commutedistance,numuserlabels,homerealestateprice)
     })
     
-    val df = rdd.map(x=>(x._3,x._4,x._5,x._6,x._7,x._8,x._9,x._10,x._11,x._12,x._13,x._14,x._15,x._16)).toDF("datacomsuption","arpu","sms_counter","incoming_call_counter","outgoint_call_counter","localnumpoi","localnumdwells","roamnumpois","roamnumdwells","numroamcity","commutedistance","numuserlabels","deviceprice","homerealestateprice")
+    val df = rdd.map(x=>(x._3,x._4,x._5,x._6,x._7,x._8,x._9,x._10,x._11,x._12,x._13,x._14,x._15,x._16)).toDF("datacomsuption","arpu","deviceprice","sms_counter","incoming_call_counter","outgoint_call_counter","localnumpoi","localnumdwells","roamnumpois","roamnumdwells","numroamcity","commutedistance","numuserlabels","homerealestateprice")
 
     val count = df.count()
 
@@ -63,88 +63,91 @@ object dataSmoother {
     //replace outlier
     val clearVec2 = fillMissingRDD2.replaceOutlier
 
-    //sms_counter
-    val vec3 = df.select("sms_counter").rdd.map(row => row.getAs[Double]("sms_counter"))
+    //deviceprice
+    val vec3 = df.select("deviceprice").rdd.map(row => row.getAs[Double]("deviceprice"))
     val qp3 = new QuarterPercentile(vec3,count)
     //replace missing
     val fillMissingRDD3 = new QuarterPercentile(qp3.replaceMissingRecord,count)
     //replace outlier
     val clearVec3 = fillMissingRDD3.replaceOutlier
 
-    //incoming_call_counter
-    val vec4 = df.select("incoming_call_counter").rdd.map(row => row.getAs[Double]("incoming_call_counter"))
+    //sms_counter
+    val vec4 = df.select("sms_counter").rdd.map(row => row.getAs[Double]("sms_counter"))
     val qp4 = new QuarterPercentile(vec4,count)
     //replace missing
     val fillMissingRDD4 = new QuarterPercentile(qp4.replaceMissingRecord,count)
     //replace outlier
     val clearVec4 = fillMissingRDD4.replaceOutlier
 
-    //outgoint_call_counter
-    val vec5 = df.select("outgoint_call_counter").rdd.map(row => row.getAs[Double]("outgoint_call_counter"))
+
+    //incoming_call_counter
+    val vec5 = df.select("incoming_call_counter").rdd.map(row => row.getAs[Double]("incoming_call_counter"))
     val qp5 = new QuarterPercentile(vec5,count)
     //replace missing
     val fillMissingRDD5 = new QuarterPercentile(qp5.replaceMissingRecord,count)
     //replace outlier
     val clearVec5 = fillMissingRDD5.replaceOutlier
 
-    //localnumpoi
-    val vec6 = df.select("localnumpoi").rdd.map(row => row.getAs[Double]("localnumpoi"))
+
+    //outgoint_call_counter
+    val vec6 = df.select("outgoint_call_counter").rdd.map(row => row.getAs[Double]("outgoint_call_counter"))
     val qp6 = new QuarterPercentile(vec6,count)
     //replace missing
     val fillMissingRDD6 = new QuarterPercentile(qp6.replaceMissingRecord,count)
     //replace outlier
     val clearVec6 = fillMissingRDD6.replaceOutlier
 
-    //localnumdwells
-    val vec7 = df.select("localnumdwells").rdd.map(row => row.getAs[Double]("localnumdwells"))
+
+    //localnumpoi
+    val vec7 = df.select("localnumpoi").rdd.map(row => row.getAs[Double]("localnumpoi"))
     val qp7 = new QuarterPercentile(vec7,count)
     //replace missing
     val fillMissingRDD7 = new QuarterPercentile(qp7.replaceMissingRecord,count)
     //replace outlier
     val clearVec7 = fillMissingRDD7.replaceOutlier
 
-    //roamnumpois
-    val vec8 = df.select("roamnumpois").rdd.map(row => row.getAs[Double]("roamnumpois"))
+    //localnumdwells
+    val vec8 = df.select("localnumdwells").rdd.map(row => row.getAs[Double]("localnumdwells"))
     val qp8 = new QuarterPercentile(vec8,count)
     //replace missing
     val fillMissingRDD8 = new QuarterPercentile(qp8.replaceMissingRecord,count)
     //replace outlier
     val clearVec8 = fillMissingRDD8.replaceOutlier
 
-    //roamnumdwells
-    val vec9 = df.select("roamnumdwells").rdd.map(row => row.getAs[Double]("roamnumdwells"))
+    //roamnumpois
+    val vec9 = df.select("roamnumpois").rdd.map(row => row.getAs[Double]("roamnumpois"))
     val qp9 = new QuarterPercentile(vec9,count)
     //replace missing
     val fillMissingRDD9 = new QuarterPercentile(qp9.replaceMissingRecord,count)
     //replace outlier
     val clearVec9 = fillMissingRDD9.replaceOutlier
 
-    //numroamcity
-    val vec10 = df.select("numroamcity").rdd.map(row => row.getAs[Double]("numroamcity"))
+    //roamnumdwells
+    val vec10 = df.select("roamnumdwells").rdd.map(row => row.getAs[Double]("roamnumdwells"))
     val qp10 = new QuarterPercentile(vec10,count)
     //replace missing
     val fillMissingRDD10 = new QuarterPercentile(qp10.replaceMissingRecord,count)
     //replace outlier
     val clearVec10 = fillMissingRDD10.replaceOutlier
 
-    //commutedistance
-    val vec11 = df.select("commutedistance").rdd.map(row => row.getAs[Double]("commutedistance"))
+    //numroamcity
+    val vec11 = df.select("numroamcity").rdd.map(row => row.getAs[Double]("numroamcity"))
     val qp11 = new QuarterPercentile(vec11,count)
     //replace missing
     val fillMissingRDD11 = new QuarterPercentile(qp11.replaceMissingRecord,count)
     //replace outlier
     val clearVec11 = fillMissingRDD11.replaceOutlier
 
-    //numuserlabels
-    val vec12 = df.select("numuserlabels").rdd.map(row => row.getAs[Double]("numuserlabels"))
+    //commutedistance
+    val vec12 = df.select("commutedistance").rdd.map(row => row.getAs[Double]("commutedistance"))
     val qp12 = new QuarterPercentile(vec12,count)
     //replace missing
     val fillMissingRDD12 = new QuarterPercentile(qp12.replaceMissingRecord,count)
     //replace outlier
     val clearVec12 = fillMissingRDD12.replaceOutlier
 
-    //deviceprice
-    val vec13 = df.select("deviceprice").rdd.map(row => row.getAs[Double]("deviceprice"))
+    //numuserlabels
+    val vec13 = df.select("numuserlabels").rdd.map(row => row.getAs[Double]("numuserlabels"))
     val qp13 = new QuarterPercentile(vec13,count)
     //replace missing
     val fillMissingRDD13 = new QuarterPercentile(qp13.replaceMissingRecord,count)
@@ -165,36 +168,36 @@ object dataSmoother {
     //merge arpu
     val step2 = step1.zip(clearVec2).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge sms_counter
+    //merge deviceprice
     val step3 = step2.zip(clearVec3).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge incoming_call_counter
+    //merge sms_counter
     val step4 = step3.zip(clearVec4).map(x=>x._1+"|"+x._2.formatted("%.1f"))
-    //merge outgoint_call_counter
+    //merge incoming_call_counter
     val step5 = step4.zip(clearVec5).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge localnumpoi
+    //merge outgoint_call_counter
     val step6 = step5.zip(clearVec6).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge roamnumdwells
+    //merge localnumpoi
     val step7 = step6.zip(clearVec7).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge roamnumpois
+    //merge roamnumdwells
     val step8 = step7.zip(clearVec8).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge roamnumdwells
+    //merge roamnumpois
     val step9 = step8.zip(clearVec9).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge numroamcity
+    //merge roamnumdwells
     val step10 = step9.zip(clearVec10).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge commutedistance
+    //merge numroamcity
     val step11 = step10.zip(clearVec11).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge numuserlabels
+    //merge commutedistance
     val step12 = step11.zip(clearVec12).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
-    //merge deviceprice
+    //merge numuserlabels
     val step13 = step12.zip(clearVec13).map(x=>x._1+"|"+x._2.formatted("%.1f"))
 
     //merge homerealestateprice

@@ -146,29 +146,29 @@ object getAverage {
       var strArr: Array[String] = x._2.split(",")
       for (i <- 0 to (strArr.length - 1)) {
         val split: Array[String] = strArr(i).split("\\|")
-        val localnumdpois = split(0)
+        val localnumpois = split(0)
         val localnumdwells = split(1)
         val roamnumpois = split(2)
         val roamnumdwells = split(3)
         val numroamcities = split(4)
 
-        localnumpoisList.add(localnumdpois)
+        localnumpoisList.add(localnumpois)
         localnumdwellsList.add(localnumdwells)
         roamnumpoisList.add(roamnumpois)
         roamnumdwellsList.add(roamnumdwells)
         numroamcitiesList.add(numroamcities)
       }
 
-      var localnumdpois = 0.0
+      var localnumpois = 0.0
       var localnumdwells = 0.0
       var roamnumpois = 0.0
       var roamnumdwells = 0.0
       var numroamcities = 0.0
 
       for(i<- 0 until localnumpoisList.size(); if ! localnumpoisList.get(i).equals("-999")){
-        localnumdpois += localnumpoisList.get(i).toDouble
+        localnumpois += localnumpoisList.get(i).toDouble
       }
-      localnumdpois = localnumdpois/localnumpoisList.size()
+      localnumpois = localnumpois/localnumpoisList.size()
 
       for(i<- 0 until localnumdwellsList.size(); if ! localnumdwellsList.get(i).equals("-999")){
         localnumdwells += localnumdwellsList.get(i).toDouble
@@ -190,7 +190,7 @@ object getAverage {
       }
       numroamcities = numroamcities/numroamcitiesList.size()
 
-      (user_id,localnumdpois+"|"+localnumdwells+"|"+roamnumpois+"|"+roamnumdwells+"|"+numroamcities)
+      (user_id,localnumpois+"|"+localnumdwells+"|"+roamnumpois+"|"+roamnumdwells+"|"+numroamcities)
     })
 
     poiFinalRDD.cache()
