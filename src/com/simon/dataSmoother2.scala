@@ -1,13 +1,13 @@
 package com.simon
 
-import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
-  * 最新版本，筛选剩下的若干个属性
+  * 该版本是初始版本，有所有的属性维度
   * Created by simon on 2017/8/21.
   */
-object dataSmoother {
+object dataSmoother2 {
   def main(args: Array[String]): Unit = {
     if (args.length != 3) {
       println("Wrong number of arguments!")

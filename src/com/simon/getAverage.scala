@@ -6,6 +6,7 @@ import java.util
 import org.apache.spark.sql.SQLContext
 
 /**
+  * 说明：该程序目前是写死的目录，后续需要调整
   * Created by simon on 2017/9/1.
   */
 object getAverage {
