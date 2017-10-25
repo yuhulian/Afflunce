@@ -2,6 +2,7 @@ package com.simon
 
 import java.util
 
+import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -104,7 +105,7 @@ object poiMetrics {
 
       (user_id, localNumPOI, localNumDwells, roamNumPOIs, roamNumDwells, numRoamCity)
     }
-    ).map(x => x._1 + "|" + x._2 + "|" + x._3 + "|" + x._4 + "|" + x._5 + "|" + x._6).coalesce(64).saveAsTextFile(resultDir)
+    ).map(x => x._1 + "|" + x._2 + "|" + x._3 + "|" + x._4 + "|" + x._5 + "|" + x._6).coalesce(64).saveAsTextFile(resultDir, classOf[SnappyCodec])
 
 
     //get commute journey metric distance

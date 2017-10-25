@@ -26,7 +26,7 @@ object getAverage {
     import sqlContext.implicits._
 
     //get ageband, datacomsuption, arpu, deviceprice
-    val crmRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/crm/20[1-2][0-9][0-1][0-2]01/"+province+"/p*").map(_.split("\\|")).map(x=>(x(0),x(1)+"|"+x(2)+"|"+x(3)+"|"+x(4))).reduceByKey(_+","+_)
+    val crmRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/crm/20[1-2][0-9][0-1][0-9]01/" + province + "/p*").map(_.split("\\|")).map(x => (x(0), x(1) + "|" + x(2) + "|" + x(3) + "|" + x(4))).reduceByKey(_ + "," + _)
 
     val crmFinalRDD = crmRDD.map(x => {
       val user_id = x._1
@@ -83,7 +83,7 @@ object getAverage {
     crmFinalRDD.cache()
 
     //get sms_counter, incoming_calls, outgoing_calls
-    val uniRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/user_network_info/20[1-2][0-9][0-1][0-2]01/"+province+"/p*").map(_.split("\\|")).map(x=>(x(0),x(1)+"|"+x(2)+"|"+x(3))).reduceByKey(_+","+_)
+    val uniRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/user_network_info/20[1-2][0-9][0-1][0-9]01/" + province + "/p*").map(_.split("\\|")).map(x => (x(0), x(1) + "|" + x(2) + "|" + x(3))).reduceByKey(_ + "," + _)
     val uniFinalRDD = uniRDD.map(x => {
       val user_id = x._1
       val uniinfo = x._2
@@ -131,7 +131,7 @@ object getAverage {
     uniFinalRDD.cache()
 
     //get localnumpois, localnumdwells, roamnumpois, roamnumdwells, numroamcities
-    val poiRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/poi/20[1-2][0-9][0-1][0-2]01/"+province+"/p*").map(_.split("\\|")).map(x=>(x(0),x(1)+"|"+x(2)+"|"+x(3)+"|"+x(4)+"|"+x(5))).reduceByKey(_+","+_)
+    val poiRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/poi/20[1-2][0-9][0-1][0-9]01/" + province + "/p*").map(_.split("\\|")).map(x => (x(0), x(1) + "|" + x(2) + "|" + x(3) + "|" + x(4) + "|" + x(5))).reduceByKey(_ + "," + _)
     val poiFinalRDD = poiRDD.map(x => {
       val user_id = x._1
       val poiinfo = x._2
@@ -197,7 +197,7 @@ object getAverage {
     poiFinalRDD.cache()
 
     //get commutedistance
-    val commuteRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/commute/20[1-2][0-9][0-1][0-2]01/"+province+"/p*").map(_.split("\\|")).map(x=>(x(0),x(1))).reduceByKey(_+","+_)
+    val commuteRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/commute/20[1-2][0-9][0-1][0-9]01/" + province + "/p*").map(_.split("\\|")).map(x => (x(0), x(1))).reduceByKey(_ + "," + _)
     val commuteFinalRDD = commuteRDD.map(x => {
       val user_id = x._1
       val commuteinfo = x._2
@@ -222,7 +222,7 @@ object getAverage {
     commuteFinalRDD.cache()
 
     //get numoftags
-    val tagRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/tags/20[1-2][0-9][0-1][0-2]01/"+province+"/p*").map(_.split("\\|")).map(x=>(x(0),x(1))).reduceByKey(_+","+_)
+    val tagRDD = sc.textFile("/user/ss_deploy/workspace/simon/spendingpower/tags/20[1-2][0-9][0-1][0-9]01/" + province + "/p*").map(_.split("\\|")).map(x => (x(0), x(1))).reduceByKey(_ + "," + _)
     val tagFinalRDD = tagRDD.map(x => {
       val user_id = x._1
       val taginfo = x._2

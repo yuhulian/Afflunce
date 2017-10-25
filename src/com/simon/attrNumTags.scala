@@ -1,5 +1,6 @@
 package com.simon
 
+import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -38,7 +39,7 @@ object attrNumTags {
         var o = x.split("\\|")
         (o(0),1)
       }).reduceByKey(_+_).map(x=>{x._1+"|"+x._2})
-      data.coalesce(26).saveAsTextFile(resultDir + province)
+      data.coalesce(26).saveAsTextFile(resultDir + province, classOf[SnappyCodec])
     }
   }
 }

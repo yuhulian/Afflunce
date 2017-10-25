@@ -2,6 +2,7 @@ package com.simon
 
 import java.text.SimpleDateFormat
 
+import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -61,6 +62,6 @@ object commuteDistance {
       user_id+"|"+distance
     })
 
-    commuteRDD.coalesce(64).saveAsTextFile(resultDir)
+    commuteRDD.coalesce(64).saveAsTextFile(resultDir, classOf[SnappyCodec])
   }
 }

@@ -2,6 +2,7 @@ package com.simon
 
 import java.util
 
+import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -94,7 +95,7 @@ object attrVCRM2 {
       //key-->user_id, value-->ageband|datacomsumption|arpu|deviceprice
       //val crmFinal = crmRDD.leftOuterJoin(deviceprice).map(x=>(x._2._1._1,x._2._1._2+"|"+x._2._1._3+"|"+x._2._1._4+"|"+"|"+x._2._2.getOrElse("-999")))
 
-      deviceRDD.map(x=>x._1+"|"+x._2).coalesce(16).saveAsTextFile(resultDir + province) //user_id和后面的属性拼接起来
+      deviceRDD.map(x => x._1 + "|" + x._2).coalesce(16).saveAsTextFile(resultDir + province, classOf[SnappyCodec]) //user_id和后面的属性拼接起来
     }
   }
 }
